@@ -1,6 +1,6 @@
 import { UserOutlined } from "@ant-design/icons";
 import { Layout, Menu } from "antd";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import type { MenuProps } from "antd";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import { routerList, RouterObj } from "../router";
@@ -32,7 +32,7 @@ const handleMenuList = (route: Array<RouterObj>, rootRouter: Array<string>): Men
 
 const handleBreadcrumb = (routes: Array<RouterObj>, keyPath: Array<string>): Array<string> => {
     let labels = [];
-    const loop = (routes, keyPath) => {
+    const loop = (routes: Array<RouterObj>, keyPath: Array<string>) => {
         routes.forEach((item) => {
             for (let j of keyPath) {
                 if (j == "/index") j = "/";
@@ -93,6 +93,9 @@ const App: React.FC = () => {
         navigate(key);
     };
 
+    const routers = handleMenuList(routerList, rootRouter);
+    const menuItemList = useMemo(() => handleMenuList(routerList, rootRouter), [routers]);
+
     return (
         <Layout>
             <Sider trigger={null} collapsible collapsed={collapsed}>
@@ -103,7 +106,7 @@ const App: React.FC = () => {
                     theme="dark"
                     mode="inline"
                     defaultSelectedKeys={defaultMenuKey}
-                    items={handleMenuList(routerList, rootRouter)}
+                    items={menuItemList}
                     onClick={handleMenu}
                     openKeys={getOpenKeys}
                     onOpenChange={(openKeys) => {
