@@ -25,6 +25,7 @@ export default ({ mode }: ConfigEnv): UserConfig => {
         server: {
             host: true,
             watch: { ignored: ["**/dist/**"] },
+            open: true,
             // https: true,
             proxy: {
                 "^/api": {

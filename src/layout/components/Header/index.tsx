@@ -24,7 +24,7 @@ const Header: React.FC<HeaderProps> = (props) => {
                 { key: "2", label: "退出登录" },
             ]}
         />
-    );
+    ); 
 
     const [visible, setVisible] = useState(false);
 
@@ -44,7 +44,7 @@ const Header: React.FC<HeaderProps> = (props) => {
                 </div>
             </div>
             <div className="o-flex  o-items-center ">
-                <Dropdown overlay={menu} placement="bottomRight" arrow={true} visible={visible}>
+                <Dropdown overlay={menu} placement="bottomRight" arrow={true} open={visible}>
                     <div
                         className="o-flex  o-items-center o-cursor-pointer o-relative"
                         style={{ height: "50px" }}

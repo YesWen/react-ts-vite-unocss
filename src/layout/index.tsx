@@ -3,7 +3,7 @@ import { Layout, Menu } from "antd";
 import React, { useState, useEffect } from "react";
 import type { MenuProps } from "antd";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
-import { routerList } from "../router";
+import { routerList, RouterObj } from "../router";
 import { getCurrentLabel } from "@/store/modules/tags";
 import { setKeyPath, getKeyPath } from "@/store/modules/breadcrumb";
 import { useAppSelector, useAppDispatch } from "@/store/hooks";
@@ -12,7 +12,7 @@ import Tags from "./components/tags";
 
 const { Sider, Content } = Layout;
 
-const handleMenuList = (route, rootRouter): MenuProps["items"] => {
+const handleMenuList = (route: Array<RouterObj>, rootRouter: Array<string>): MenuProps["items"] => {
     const res = [];
     route.forEach((item, index) => {
         if (item.isMenu) {
@@ -30,7 +30,7 @@ const handleMenuList = (route, rootRouter): MenuProps["items"] => {
     return res;
 };
 
-const handleBreadcrumb = (routes, keyPath) => {
+const handleBreadcrumb = (routes: Array<RouterObj>, keyPath: Array<string>): Array<string> => {
     let labels = [];
     const loop = (routes, keyPath) => {
         routes.forEach((item) => {
@@ -63,7 +63,7 @@ const getMenu = (path) => {
         return item;
     });
     if (path == "/index") {
-        return "/";
+        return ["/"];
     }
 
     return keyPath;
